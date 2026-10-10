@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kasir Laundry</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{--bg:#eef4f9;--card:#fff;--ink:#10243a;--mut:#5a6e82;--line:#d3dfea;--acc:#1763b8;--accT:#fff;--soft:#e2eef9;--ok:#177a4a;--warn:#b8650f;--bad:#b3402a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1622;--card:#142233;--ink:#e6eff8;--mut:#93a8bd;--line:#26384c;--acc:#5fa8f0;--accT:#06192e;--soft:#1a2e44;--ok:#4fcf8f;--warn:#f0a85a;--bad:#f08a72}}
+:root[data-theme="dark"]{--bg:#0c1622;--card:#142233;--ink:#e6eff8;--mut:#93a8bd;--line:#26384c;--acc:#5fa8f0;--accT:#06192e;--soft:#1a2e44;--ok:#4fcf8f;--warn:#f0a85a;--bad:#f08a72}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'IBM Plex Sans',system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px 14px 40px}
+h1,h2,.big{font-family:'Bricolage Grotesque',system-ui,sans-serif}
+h1{font-size:26px;font-weight:800;margin:6px 0 2px}
+h2{font-size:17px;margin:0 0 10px}
+.sub{color:var(--mut);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{background:var(--soft);border-radius:10px;padding:10px;text-align:center}
+.lbl{color:var(--mut);font-size:12px;display:block}
+.big{font-size:19px;font-weight:800;display:block}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:11px;min-height:44px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button,.btn{font:inherit;font-weight:600;border:0;border-radius:9px;padding:10px 14px;min-height:44px;cursor:pointer;background:var(--acc);color:var(--accT);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.sm{padding:4px 10px;min-height:36px;font-size:13px}
+.full{width:100%;margin-top:14px}
+.preview{margin-top:10px;padding:10px;border-radius:9px;background:var(--soft)}
+.tabs{display:flex;gap:6px;margin:12px 0}
+.tabs button{flex:1;background:var(--card);color:var(--mut);border:1px solid var(--line)}
