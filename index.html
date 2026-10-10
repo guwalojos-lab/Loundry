@@ -34,3 +34,56 @@ button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid
 .preview{margin-top:10px;padding:10px;border-radius:9px;background:var(--soft)}
 .tabs{display:flex;gap:6px;margin:12px 0}
 .tabs button{flex:1;background:var(--card);color:var(--mut);border:1px solid var(--line)}
+.tabs button.on{background:var(--acc);color:var(--accT);border-color:var(--acc)}
+.hide{display:none}
+.chips{display:flex;gap:6px;overflow-x:auto;margin:10px 0}
+.chips button{background:var(--card);color:var(--mut);border:1px solid var(--line);white-space:nowrap;min-height:36px;padding:4px 12px}
+.chips button.on{background:var(--soft);color:var(--ink);border-color:var(--acc)}
+.o{padding:12px 0;border-top:1px solid var(--line)}
+.o:first-of-type{border-top:0}
+.oh{display:flex;justify-content:space-between;gap:8px}
+.o small{color:var(--mut)}
+.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:99px;padding:1px 9px;background:var(--soft)}
+.t-Diterima{color:var(--warn)}.t-Dicuci{color:var(--acc)}.t-Selesai,.t-Diambil{color:var(--ok)}
+.bad{color:var(--bad)}.ok{color:var(--ok)}
+.acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.empty{color:var(--mut);text-align:center;padding:16px 0}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;justify-content:center;align-items:flex-start;overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px));z-index:10}
+#ov.on{display:flex}
+.pop{width:100%;max-width:360px}
+#nota{background:#fff;color:#111;border-radius:8px;padding:18px;font:13px/1.5 'IBM Plex Sans',system-ui,sans-serif}
+#nota h3{margin:0;text-align:center;font:800 17px 'Bricolage Grotesque',system-ui,sans-serif}
+#nota .c{text-align:center;color:#555;margin:0 0 8px}
+#nota hr{border:0;border-top:1px dashed #999;margin:8px 0}
+#nota .l{display:flex;justify-content:space-between;gap:10px}
+#nota .t{font-weight:700;font-size:15px}
+.pop .acts{margin-top:10px}
+.pop .acts>*{flex:1}
+@media print{body *{visibility:hidden}#nota,#nota *{visibility:visible}#ov{position:static;background:none;padding:0;display:block}#nota{position:absolute;left:0;top:0;width:100%;border-radius:0}}
+</style>
+</head>
+<body>
+<main>
+<h1 id="nm">Kasir Laundry</h1>
+<p class="sub" id="tgl"></p>
+
+<div class="tabs">
+ <button class="on" data-t="beranda">Beranda</button>
+ <button data-t="order">Order</button>
+ <button data-t="laporan">Laporan</button>
+ <button data-t="harga">Harga</button>
+</div>
+
+<section id="beranda">
+ <div class="card"><div class="stats">
+  <div><span class="lbl">Sedang diproses</span><span class="big" id="sA">0</span></div>
+  <div><span class="lbl">Omzet hari ini</span><span class="big" id="sO">0</span></div>
+  <div><span class="lbl">Belum lunas</span><span class="big bad" id="sB">0</span></div>
+ </div></div>
+
+ <div class="card"><h2>Order baru</h2>
+  <label for="nama">Nama pelanggan</label><input id="nama" placeholder="Bu Sari">
+  <label for="hp">No. WhatsApp</label><input id="hp" type="tel" inputmode="tel" placeholder="08123456789">
+  <label for="lay">Layanan</label><select id="lay"></select>
+  <div class="row">
+   <div><label for="qty" id="qLbl">Berat (kg)</label><input id="qty" type="number" inputmode="decim
