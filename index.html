@@ -48,6 +48,9 @@ button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid
 .bad{color:var(--bad)}.ok{color:var(--ok)}
 .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .empty{color:var(--mut);text-align:center;padding:16px 0}
+#lock{position:fixed;inset:0;background:var(--bg);z-index:20;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+#lock.on{display:flex}
+#lock input{max-width:220px;text-align:center;font-size:22px;letter-spacing:6px;margin:10px 0}
 #ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;justify-content:center;align-items:flex-start;overflow:auto;padding:calc(16px + env(safe-area-inset-top,0px)) 14px calc(16px + env(safe-area-inset-bottom,0px));z-index:10}
 #ov.on{display:flex}
 .pop{width:100%;max-width:360px}
@@ -120,11 +123,21 @@ button.ghost,.btn.ghost{background:transparent;color:var(--ink);border:1px solid
   <p class="sub">Ubah harga langsung di kolom. Tersimpan otomatis.</p>
   <div id="hargaList"></div>
  </div>
+ <div class="card"><h2>Kunci PIN</h2>
+  <p class="sub">Pengunci layar untuk perangkat ini, 4 sampai 6 angka.</p>
+  <label for="pin1">PIN baru</label><input id="pin1" type="password" inputmode="numeric" maxlength="6" autocomplete="off">
+  <div class="acts"><button id="pSimpan">Simpan PIN</button><button class="ghost" id="pKunci">Kunci sekarang</button><button class="ghost" id="pHapus">Hapus PIN</button></div>
+  <p class="sub" id="pMsg" style="margin:10px 0 0"></p>
+ </div>
  <div class="card"><h2>Hapus semua data</h2>
   <button class="ghost" id="reset">Hapus semua order</button>
  </div>
 </section>
 </main>
+
+<div id="lock"><h1 id="lnm">Aplikasi terkunci</h1><p class="sub">Masukkan PIN untuk membuka.</p>
+ <input id="lpin" type="password" inputmode="numeric" maxlength="6" autocomplete="off" aria-label="PIN">
+ <button id="lbuka">Buka</button><p class="bad" id="lmsg" role="alert"></p></div>
 
 <div id="ov"><div class="pop"><div id="nota"></div>
  <div class="acts"><button id="nPrint">Cetak</button><a class="btn" id="nWa" target="_blank" rel="noopener">Kirim WhatsApp</a><button class="ghost" id="nClose" style="background:var(--card)">Tutup</button></div></div></div>
@@ -250,6 +263,15 @@ $('lapCsv').onclick=async()=>{
   el.textContent='Berkas diunduh.';
  }catch(e){el.textContent='Unduhan gagal. Coba lagi.'}
 };
+async function hs(p){const s='laundry-'+p;try{const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}catch(e){let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return 'f'+h}}
+let PH=null;try{PH=localStorage.getItem('laundryPin')}catch(e){}
+function kunci(){if(!PH)return;$('lnm').textContent=S.usaha||'Aplikasi terkunci';$('lock').classList.add('on');$('lpin').value='';$('lmsg').textContent='';setTimeout(()=>$('lpin').focus(),50)}
+$('lbuka').onclick=async()=>{if(await hs($('lpin').value)===PH){$('lock').classList.remove('on')}else{$('lmsg').textContent='PIN salah. Coba lagi.';$('lpin').value=''}};
+$('lpin').onkeydown=e=>{if(e.key==='Enter')$('lbuka').click()};
+$('pSimpan').onclick=async()=>{const p=$('pin1').value;if(!/^\d{4,6}$/.test(p)){$('pMsg').textContent='PIN harus 4 sampai 6 angka.';return}PH=await hs(p);try{localStorage.setItem('laundryPin',PH)}catch(e){}$('pin1').value='';$('pMsg').textContent='PIN tersimpan. Aplikasi akan meminta PIN saat dibuka.'};
+$('pHapus').onclick=()=>{PH=null;try{localStorage.removeItem('laundryPin')}catch(e){}$('pMsg').textContent='PIN dihapus.'};
+$('pKunci').onclick=()=>{if(!PH){$('pMsg').textContent='Atur PIN dulu.';return}kunci()};
+kunci();
 lap();
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
@@ -259,4 +281,4 @@ $('tgl').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'
 render();
 </script>
 </body>
- </html>
+</html>
